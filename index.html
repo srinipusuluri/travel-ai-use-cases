@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI in Travel & Hospitality - Comprehensive Use Cases</title>
+    <style>
+        :root {
+            --primary-color: #06b6d4;
+            --secondary-color: #f59e0b;
+            --accent-color: #8b5cf6;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: #334155;
+            --travel-blue: #06b6d4;
+            --hospitality-orange: #f59e0b;
+            --destination-purple: #8b5cf6;
+            --airplane-teal: #14b8a6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-color), #0b1220);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--travel-blue), var(--hospitality-orange), var(--destination-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .nav-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border-color: var(--primary-color);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(45deg, var(--travel-blue), var(--hospitality-orange));
+            border: none;
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--travel-blue), var(--hospitality-orange), var(--destination-purple));
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .icon.ml { background: rgba(6, 182, 212, 0.2); color: var(--travel-blue); }
+        .icon.gen { background: rgba(245, 158, 11, 0.2); color: var(--hospitality-orange); }
+        .icon.ag { background: rgba(139, 92, 246, 0.2); color: var(--destination-purple); }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-content {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(45deg, var(--travel-blue), var(--hospitality-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .architecture-diagram {
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .architecture-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .architecture-item::before {
+            content: '→';
+            color: var(--travel-blue);
+            font-weight: bold;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(245, 158, 11, 0.1));
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-title {
+            color: var(--travel-blue);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .metric-card {
+            background: rgba(255,255,255,0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--travel-blue);
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .travel-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+
+        .flight-badge {
+            background: rgba(20, 184, 166, 0.2);
+            color: #14b8a6;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(20, 184, 166, 0.3);
+            margin-left: 0.5rem;
+        }
+
+        .hospitality-badge {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            margin-left: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .container { padding: 1rem; }
+            .card-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>✈️ AI in Travel & Hospitality</h1>
+            <p class="subtitle">Comprehensive Guide to Machine Learning, Generative AI, and Agentic Systems in Tourism & Guest Services</p>
+        </header>
+
+        <div class="nav-container">
+            <button class="nav-btn active" onclick="showSection('ml')">🔮 ML / Predictive</button>
+            <button class="nav-btn" onclick="showSection('gen')">✍️ Generative AI</button>
+            <button class="nav-btn" onclick="showSection('agentic')">🤖 Agentic AI</button>
+        </div>
+
+        <!-- ML / Predictive Use Cases -->
+        <div id="ml" class="content-section active">
+            <h2 class="section-title">🔮 Machine Learning & Predictive Analytics</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
+                Advanced statistical models and algorithms for travel optimization, hospitality management, and customer experience enhancement
+            </p>
+
+            <div class="card-grid">
+                <!-- Demand Forecasting -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ml">📊</div>
+                        <div>
+                            <div class="card-title">Demand Forecasting</div>
+                            <div class="card-subtitle">Travel Pattern Analysis</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Predict travel demand patterns to optimize inventory management, pricing, and resource allocation across the travel ecosystem.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Time Series Analysis</span>
+                            <span class="tech-tag">Seasonal Trending</span>
+                            <span class="tech-tag">Event-based Forecasting</span>
+                            <span class="tech-tag">Geographic Analysis</span>
+                            <span class="tech-tag">Market Intelligence</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Historical Data → Seasonal Patterns → Event Impact → Demand Prediction → Resource Allocation</div>
+                            <div class="architecture-item">Booking Trends → Economic Indicators → Competitor Analysis → Market Forecast → Strategy</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Historical booking and reservation data</li>
+                                <li>Seasonal and holiday patterns</li>
+                                <li>Special events and conferences</li>
+                                <li>Economic indicators and trends</li>
+                                <li>Competitor pricing and availability</li>
+                                <li>Weather and seasonal factors</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">85-95%</div>
+                                <div class="metric-label">Forecast Accuracy</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">30-50%</div>
+                                <div class="metric-label">Overbooking</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">25-40%</div>
+                                <div class="metric-label">Revenue Optimization</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Pricing Models -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ml">💰</div>
+                        <div>
+                            <div class="card-title">Dynamic Pricing</div>
+                            <div class="card-subtitle">Revenue Optimization</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Implement real-time pricing optimization based on demand, competition, and market conditions to maximize revenue and occupancy.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Price Optimization</span>
+                            <span class="tech-tag">Competitive Analysis</span>
+                            <span class="tech-tag">Demand Sensing</span>
+                            <span class="tech-tag">Revenue Management</span>
+                            <span class="tech-tag">Market Response</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Market Data → Demand Analysis → Price Adjustment → Revenue Impact → Optimization Loop</div>
+                            <div class="architecture-item">Competitor Pricing → Occupancy Rates → Booking Patterns → Price Strategy → Implementation</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Real-time competitor pricing</li>
+                                <li>Current occupancy and availability</li>
+                                <li>Booking lead times and patterns</li>
+                                <li>Historical price-performance data</li>
+                                <li>Market demand indicators</li>
+                                <li>Customer price sensitivity</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">15-30%</div>
+                                <div class="metric-label">Revenue Growth</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">20-40%</div>
+                                <div class="metric-label">Occupancy Optimization</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">Real-time</div>
+                                <div class="metric-label">Price Updates</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Occupancy Prediction -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ml">🏨</div>
+                        <div>
+                            <div class="card-title">Occupancy Prediction</div>
+                            <div class="card-subtitle">Capacity Management</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Predict hotel and accommodation occupancy rates to optimize staffing, inventory, and service delivery.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Occupancy Analytics</span>
+                            <span class="tech-tag">Capacity Planning</span>
+                            <span class="tech-tag">Resource Allocation</span>
+                            <span class="tech-tag">Seasonal Forecasting</span>
+                            <span class="tech-tag">Demand Matching</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Booking Data → Occupancy Forecast → Staffing Plan → Resource Allocation → Service Optimization</div>
+                            <div class="architecture-item">Historical Patterns → Event Calendar → Market Trends → Capacity Planning → Efficiency</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Historical occupancy patterns</li>
+                                <li>Booking lead time analysis</li>
+                                <li>Event and conference schedules</li>
+                                <li>Seasonal demand variations</li>
+                                <li>Room type preferences</li>
+                                <li>Cancellation and modification patterns</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">80-90%</div>
+                                <div class="metric-label">Prediction Accuracy</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">25-40%</div>
+                                <div class="metric-label">Staff Efficiency</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">30-50%</div>
+                                <div class="metric-label">Resource Optimization</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer Churn Modeling -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ml">⚠️</div>
+                        <div>
+                            <div class="card-title">Customer Churn Modeling</div>
+                            <div class="card-subtitle">Loyalty Retention</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Predict customer churn and implement retention strategies to maintain loyalty and lifetime value in the travel industry.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Churn Prediction</span>
+                            <span class="tech-tag">Customer Analytics</span>
+                            <span class="tech-tag">Loyalty Programs</span>
+                            <span class="tech-tag">Retention Strategies</span>
+                            <span class="tech-tag">Behavioral Analysis</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Customer Behavior → Risk Assessment → Churn Prediction → Retention Strategy → Loyalty Enhancement</div>
+                            <div class="architecture-item">Booking Patterns → Satisfaction Metrics → Engagement Levels → Churn Probability → Intervention</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Customer booking history</li>
+                                <li>Loyalty program participation</li>
+                                <li>Customer satisfaction scores</li>
+                                <li>Complaint and feedback data</li>
+                                <li>Competitor switching patterns</li>
+                                <li>Engagement and interaction data</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">75-85%</div>
+                                <div class="metric-label">Churn Prediction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">30-50%</div>
+                                <div class="metric-label">Customer Retention</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">25-40%</div>
+                                <div class="metric-label">Loyalty Program ROI</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flight Delay Prediction -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ml">✈️</div>
+                        <div>
+                            <div class="card-title">Flight Delay Prediction</div>
+                            <div class="card-subtitle">Airline Operations</div>
+                            <span class="flight-badge">Airline</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Predict flight delays and disruptions to improve operational efficiency and passenger experience management.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Operational Analytics</span>
+                            <span class="tech-tag">Weather Forecasting</span>
+                            <span class="tech-tag">Air Traffic Analysis</span>
+                            <span class="tech-tag">Predictive Maintenance</span>
+                            <span class="tech-tag">Disruption Management</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Weather Data → Air Traffic → Aircraft Status → Delay Prediction → Passenger Notification</div>
+                            <div class="architecture-item">Historical Delays → Operational Factors → External Conditions → Risk Assessment → Mitigation</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Historical flight delay data</li>
+                                <li>Weather patterns and forecasts</li>
+                                <li>Air traffic control information</li>
+                                <li>Aircraft maintenance schedules</li>
+                                <li>Airport operational data</li>
+                                <li>Seasonal and holiday factors</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">80-90%</div>
+                                <div class="metric-label">Delay Prediction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">40-60%</div>
+                                <div class="metric-label">Passenger Satisfaction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">25-45%</div>
+                                <div class="metric-label">Operational Costs</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upsell Propensity Scoring -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ml">📈</div>
+                        <div>
+                            <div class="card-title">Upsell Propensity</div>
+                            <div class="card-subtitle">Revenue Enhancement</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Identify customers most likely to purchase premium services and upgrades to maximize ancillary revenue opportunities.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Propensity Modeling</span>
+                            <span class="tech-tag">Customer Segmentation</span>
+                            <span class="tech-tag">Behavioral Analytics</span>
+                            <span class="tech-tag">Personalization</span>
+                            <span class="tech-tag">Revenue Optimization</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Customer Profile → Purchase History → Propensity Scoring → Targeted Offers → Conversion Tracking</div>
+                            <div class="architecture-item">Behavioral Data → Preference Analysis → Upsell Opportunities → Personalized Marketing → Revenue</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Customer purchase history</li>
+                                <li>Booking behavior patterns</li>
+                                <li>Demographic and preference data</li>
+                                <li>Previous upsell responses</li>
+                                <li>Competitor offerings</li>
+                                <li>Price sensitivity analysis</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">60-80%</div>
+                                <div class="metric-label">Upsell Success</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">25-40%</div>
+                                <div class="metric-label">Ancillary Revenue</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">30-50%</div>
+                                <div class="metric-label">Customer Satisfaction</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Generative AI Use Cases -->
+        <div id="gen" class="content-section">
+            <h2 class="section-title">✍️ Generative AI Applications</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
+                AI-powered content creation, personalized travel experiences, and customer service automation in hospitality and tourism
+            </p>
+
+            <div class="card-grid">
+                <!-- Personalized Itinerary Generation -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon gen">🗺️</div>
+                        <div>
+                            <div class="card-title">Personalized Itinerary</div>
+                            <div class="card-subtitle">Travel Planning</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Generate customized travel itineraries based on individual preferences, interests, and travel constraints.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">GPT-4/Claude</span>
+                            <span class="tech-tag">Preference Analysis</span>
+                            <span class="tech-tag">Route Optimization</span>
+                            <span class="tech-tag">Personalization</span>
+                            <span class="tech-tag">Local Insights</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Traveler Profile → Interest Analysis → Destination Research → Itinerary Creation → Personalization</div>
+                            <div class="architecture-item">Budget Constraints → Time Availability → Activity Preferences → Route Planning → Experience Design</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Traveler preference profiles</li>
+                                <li>Destination information and attractions</li>
+                                <li>Transportation options and schedules</li>
+                                <li>Accommodation availability</li>
+                                <li>Local events and activities</li>
+                                <li>Weather and seasonal considerations</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">80-90%</div>
+                                <div class="metric-label">Itinerary Satisfaction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">70-85%</div>
+                                <div class="metric-label">Planning Efficiency</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">5-10 minutes</div>
+                                <div class="metric-label">Itinerary Generation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Travel Assistant Chatbots -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon gen">🤖</div>
+                        <div>
+                            <div class="card-title">Travel Assistant Chatbots</div>
+                            <div class="card-subtitle">24/7 Customer Support</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Provide instant, multilingual travel assistance and booking support through conversational AI interfaces.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">GPT-4/Claude</span>
+                            <span class="tech-tag">Conversational AI</span>
+                            <span class="tech-tag">Multilingual Support</span>
+                            <span class="tech-tag">Booking Integration</span>
+                            <span class="tech-tag">Travel Knowledge</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Customer Query → Language Processing → Knowledge Retrieval → Response Generation → Booking Integration</div>
+                            <div class="architecture-item">Travel Requirements → Option Presentation → Booking Assistance → Confirmation → Support</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Travel booking system integration</li>
+                                <li>Destination and attraction databases</li>
+                                <li>Transportation and accommodation options</li>
+                                <li>Travel policy and restriction information</li>
+                                <li>Customer service protocols</li>
+                                <li>Multilingual content and responses</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">90-95%</div>
+                                <div class="metric-label">Query Resolution</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">24/7</div>
+                                <div class="metric-label">Availability</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">3-5 seconds</div>
+                                <div class="metric-label">Response Time</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hotel Description Writing -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon gen">🏨</div>
+                        <div>
+                            <div class="card-title">Hotel Description Writing</div>
+                            <div class="card-subtitle">Marketing Content</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Generate compelling and accurate hotel descriptions that highlight unique features and appeal to target customer segments.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">GPT-4/Claude</span>
+                            <span class="tech-tag">Brand Voice</span>
+                            <span class="tech-tag">Feature Highlighting</span>
+                            <span class="tech-tag">SEO Optimization</span>
+                            <span class="tech-tag">Target Audience</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Hotel Features → Brand Guidelines → Description Generation → SEO Optimization → Marketing Integration</div>
+                            <div class="architecture-item">Room Details → Amenities → Location Benefits → Guest Experience → Conversion Optimization</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Hotel feature specifications</li>
+                                <li>Brand voice and tone guidelines</li>
+                                <li>Target market preferences</li>
+                                <li>Competitor descriptions</li>
+                                <li>SEO keyword requirements</li>
+                                <li>Guest review highlights</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">85-95%</div>
+                                <div class="metric-label">Content Quality</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">70-85%</div>
+                                <div class="metric-label">Booking Conversion</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">6-8 hours</div>
+                                <div class="metric-label">Content Creation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Guest Communication Drafts -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon gen">💬</div>
+                        <div>
+                            <div class="card-title">Guest Communication</div>
+                            <div class="card-subtitle">Personalized Messaging</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Generate personalized communications for guests including welcome messages, special occasion greetings, and service updates.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">GPT-4/Claude</span>
+                            <span class="tech-tag">Personalization</span>
+                            <span class="tech-tag">Guest Preferences</span>
+                            <span class="tech-tag">Communication Templates</span>
+                            <span class="tech-tag">Relationship Building</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Guest Profile → Occasion Recognition → Message Personalization → Communication Delivery → Feedback</div>
+                            <div class="architecture-item">Stay Details → Preferences → Special Requests → Custom Messages → Guest Experience</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Guest preference profiles</li>
+                                <li>Stay history and patterns</li>
+                                <li>Special occasion tracking</li>
+                                <li>Communication preferences</li>
+                                <li>Service request history</li>
+                                <li>Feedback and satisfaction data</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">90-95%</div>
+                                <div class="metric-label">Guest Satisfaction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">80-90%</div>
+                                <div class="metric-label">Response Rate</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">70-85%</div>
+                                <div class="metric-label">Personalization</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review Response Generation -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon gen">⭐</div>
+                        <div>
+                            <div class="card-title">Review Response</div>
+                            <div class="card-subtitle">Guest Feedback Management</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Generate thoughtful and appropriate responses to guest reviews to maintain reputation and demonstrate excellent customer service.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">GPT-4/Claude</span>
+                            <span class="tech-tag">Sentiment Analysis</span>
+                            <span class="tech-tag">Brand Voice</span>
+                            <span class="tech-tag">Issue Resolution</span>
+                            <span class="tech-tag">Reputation Management</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Review Analysis → Sentiment Detection → Response Drafting → Brand Alignment → Publication</div>
+                            <div class="architecture-item">Guest Concern → Issue Understanding → Solution Offering → Appreciation → Follow-up</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Brand voice and tone guidelines</li>
+                                <li>Previous review responses</li>
+                                <li>Common guest concerns</li>
+                                <li>Resolution protocols</li>
+                                <li>Competitor response analysis</li>
+                                <li>Guest satisfaction benchmarks</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">90-95%</div>
+                                <div class="metric-label">Response Quality</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">80-90%</div>
+                                <div class="metric-label">Response Time</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">30-50%</div>
+                                <div class="metric-label">Guest Engagement</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Multilingual Support Responses -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon gen">🌍</div>
+                        <div>
+                            <div class="card-title">Multilingual Support</div>
+                            <div class="card-subtitle">Global Customer Service</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Provide customer support and communication in multiple languages to serve international travelers effectively.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">GPT-4/Claude</span>
+                            <span class="tech-tag">Language Translation</span>
+                            <span class="tech-tag">Cultural Adaptation</span>
+                            <span class="tech-tag">Localization</span>
+                            <span class="tech-tag">Global Support</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Customer Language → Content Translation → Cultural Adaptation → Response Generation → Quality Assurance</div>
+                            <div class="architecture-item">Query Understanding → Local Context → Appropriate Response → Language Delivery → Customer Satisfaction</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Multiple language databases</li>
+                                <li>Cultural context information</li>
+                                <li>Industry-specific terminology</li>
+                                <li>Translation quality standards</li>
+                                <li>Customer service protocols</li>
+                                <li>Regional preference data</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">90-95%</div>
+                                <div class="metric-label">Translation Accuracy</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">80-90%</div>
+                                <div class="metric-label">Customer Satisfaction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">20+ Languages</div>
+                                <div class="metric-label">Language Support</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agentic AI Use Cases -->
+        <div id="agentic" class="content-section">
+            <h2 class="section-title">🤖 Agentic AI Systems</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
+                Autonomous AI agents that can reason, plan, and execute complex travel itineraries and hospitality management workflows
+            </p>
+
+            <div class="card-grid">
+                <!-- Autonomous Travel Booking Agent -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ag">✈️</div>
+                        <div>
+                            <div class="card-title">Autonomous Travel Booking</div>
+                            <div class="card-subtitle">End-to-End Trip Planning</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Plan and book complete travel itineraries including flights, accommodations, transportation, and activities based on user preferences and constraints.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Travel Planning</span>
+                            <span class="tech-tag">Multi-modal Booking</span>
+                            <span class="tech-tag">Preference Optimization</span>
+                            <span class="tech-tag">Budget Management</span>
+                            <span class="tech-tag">Real-time Availability</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">User Preferences → Destination Selection → Flight Booking → Accommodation → Activities → Confirmation</div>
+                            <div class="architecture-item">Budget Constraints → Travel Dates → Interest Matching → Option Comparison → Booking Execution → Management</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Flight availability and pricing APIs</li>
+                                <li>Hotel inventory and rates</li>
+                                <li>Transportation options</li>
+                                <li>Activity and attraction data</li>
+                                <li>User preference profiles</li>
+                                <li>Budget and constraint parameters</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">80-90%</div>
+                                <div class="metric-label">Booking Success</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">60-80%</div>
+                                <div class="metric-label">Planning Time</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">40-60%</div>
+                                <div class="metric-label">Cost Optimization</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Pricing Optimization Agent -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ag">💰</div>
+                        <div>
+                            <div class="card-title">Dynamic Pricing Optimization</div>
+                            <div class="card-subtitle">Revenue Maximization</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Continuously monitor and optimize pricing strategies across all channels to maximize revenue while maintaining competitiveness.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Real-time Pricing</span>
+                            <span class="tech-tag">Market Analysis</span>
+                            <span class="tech-tag">Competitor Monitoring</span>
+                            <span class="tech-tag">Demand Response</span>
+                            <span class="tech-tag">Revenue Optimization</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Market Data → Demand Analysis → Price Adjustment → Competitor Response → Revenue Impact → Optimization</div>
+                            <div class="architecture-item">Booking Patterns → Occupancy Rates → Price Sensitivity → Strategy Adjustment → Performance → Learning</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Real-time market pricing data</li>
+                                <li>Competitor rate shopping</li>
+                                <li>Booking pace and patterns</li>
+                                <li>Historical performance data</li>
+                                <li>Market demand indicators</li>
+                                <li>Customer booking behavior</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">15-30%</div>
+                                <div class="metric-label">Revenue Growth</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">Real-time</div>
+                                <div class="metric-label">Price Updates</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">25-40%</div>
+                                <div class="metric-label">Market Responsiveness</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Guest Experience Orchestration Agent -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ag">🌟</div>
+                        <div>
+                            <div class="card-title">Guest Experience Orchestration</div>
+                            <div class="card-subtitle">Personalized Hospitality</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Coordinate and personalize all aspects of the guest experience from booking through departure to ensure exceptional service delivery.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Experience Management</span>
+                            <span class="tech-tag">Personalization</span>
+                            <span class="tech-tag">Service Coordination</span>
+                            <span class="tech-tag">Preference Tracking</span>
+                            <span class="tech-tag">Quality Assurance</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Booking → Preference Analysis → Service Planning → Experience Delivery → Feedback → Improvement</div>
+                            <div class="architecture-item">Guest Profile → Customization → Staff Coordination → Service Execution → Satisfaction → Loyalty</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Guest preference and history data</li>
+                                <li>Service capability information</li>
+                                <li>Staff availability and skills</li>
+                                <li>Property amenities and features</li>
+                                <li>Local attraction and activity data</li>
+                                <li>Quality standards and protocols</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">85-95%</div>
+                                <div class="metric-label">Guest Satisfaction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">40-60%</div>
+                                <div class="metric-label">Personalization</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">30-50%</div>
+                                <div class="metric-label">Service Efficiency</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Disruption Management Agent -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ag">⚠️</div>
+                        <div>
+                            <div class="card-title">Disruption Management</div>
+                            <div class="card-subtitle">Crisis Response</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Automatically manage travel disruptions including flight cancellations, weather events, and other emergencies to minimize guest impact.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Crisis Management</span>
+                            <span class="tech-tag">Real-time Monitoring</span>
+                            <span class="tech-tag">Alternative Planning</span>
+                            <span class="tech-tag">Communication</span>
+                            <span class="tech-tag">Recovery Coordination</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Disruption Detection → Impact Assessment → Alternative Options → Guest Communication → Rebooking → Resolution</div>
+                            <div class="architecture-item">Monitoring → Alert Generation → Response Planning → Execution → Follow-up → Learning</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Real-time disruption monitoring</li>
+                                <li>Alternative availability data</li>
+                                <li>Guest contact information</li>
+                                <li>Rebooking policies and procedures</li>
+                                <li>Communication templates</li>
+                                <li>Insurance and compensation guidelines</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">90-95%</div>
+                                <div class="metric-label">Resolution Speed</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">70-85%</div>
+                                <div class="metric-label">Guest Satisfaction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">50-70%</div>
+                                <div class="metric-label">Cost Recovery</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Airline Rebooking Agent -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ag">🛫</div>
+                        <div>
+                            <div class="card-title">Airline Rebooking</div>
+                            <div class="card-subtitle">Flight Disruption Management</div>
+                            <span class="flight-badge">Airline</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Automatically rebook passengers on alternative flights during delays, cancellations, or disruptions while optimizing passenger satisfaction and operational efficiency.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Flight Rebooking</span>
+                            <span class="tech-tag">Passenger Prioritization</span>
+                            <span class="tech-tag">Inventory Management</span>
+                            <span class="tech-tag">Communication</span>
+                            <span class="tech-tag">Compensation</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Flight Disruption → Passenger Analysis → Alternative Options → Rebooking → Communication → Compensation</div>
+                            <div class="architecture-item">Inventory Check → Priority Assignment → Seat Allocation → Notification → Confirmation → Support</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Flight inventory and availability</li>
+                                <li>Passenger booking data</li>
+                                <li>Priority and status information</li>
+                                <li>Rebooking policies</li>
+                                <li>Communication protocols</li>
+                                <li>Compensation guidelines</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">85-95%</div>
+                                <div class="metric-label">Rebooking Success</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">70-90%</div>
+                                <div class="metric-label">Passenger Satisfaction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">15-30%</div>
+                                <div class="metric-label">Rebooking Costs</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- End-to-End Journey Orchestration Agent -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ag">🗺️</div>
+                        <div>
+                            <div class="card-title">End-to-End Journey Orchestration</div>
+                            <div class="card-subtitle">Seamless Travel Experience</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Coordinate the entire travel journey from initial planning through post-trip follow-up, ensuring seamless transitions and exceptional experiences.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Journey Management</span>
+                            <span class="tech-tag">Multi-service Coordination</span>
+                            <span class="tech-tag">Real-time Updates</span>
+                            <span class="tech-tag">Personalization</span>
+                            <span class="tech-tag">Experience Optimization</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Planning → Booking → Pre-trip → Travel → Stay → Activities → Return → Follow-up → Loyalty</div>
+                            <div class="architecture-item">Preferences → Coordination → Communication → Execution → Monitoring → Enhancement → Feedback</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Multi-service provider integration</li>
+                                <li>Real-time status monitoring</li>
+                                <li>Customer preference profiles</li>
+                                <li>Service quality standards</li>
+                                <li>Communication channels</li>
+                                <li>Feedback and improvement systems</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">80-90%</div>
+                                <div class="metric-label">Journey Satisfaction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">60-80%</div>
+                                <div class="metric-label">Seamless Transitions</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">40-60%</div>
+                                <div class="metric-label">Customer Loyalty</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>✨ Built with cutting-edge AI technologies for the future of travel and hospitality</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-secondary);">
+                Note: Implementation requires careful consideration of data privacy, customer experience, and regulatory compliance
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update navigation buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Find and activate the clicked button
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
